@@ -1,12 +1,17 @@
+import requests
+import uvicorn
+
 from fastapi import FastAPI, Header, HTTPException, status, Depends, Request
 from typing import Optional
-import uvicorn
 
 app = FastAPI()
 
 API_KEY = "userorder123"
-API_KEY_NAME = "X-API-Key"
+API_KEY_NAME = "X-API-Value"
 
+headers = {
+  "x-api-key": "X-API-Value"
+}
 
 @app.get('/')
 def health_check():
@@ -17,8 +22,9 @@ def verify_api_key(
     x_api_key: Optional[str] = Header(None),
     request: Request = None
 ):
-  cirkul = x_api_key or request.query_params.get("cirkul")
-  if cirkul != API_KEY:
+
+  api_key = x_api_key or request.query_params.get("cirkul") or request.query_params.get("api_key")
+  if api_key != "userorder123" and api_key != "X-API-Value":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid or missing API Key",
