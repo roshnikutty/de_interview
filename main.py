@@ -37,7 +37,7 @@ async def get_users():
       pass
       
 
-# implement code below to get revenue by each user
+# implement code below to get revenue by each user accessible at the endpoint below
 # @app.get("/user-revenue", dependencies=[Depends(verify_api_key)])
 
 if __name__ == '__main__':
